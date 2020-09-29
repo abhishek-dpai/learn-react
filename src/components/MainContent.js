@@ -3,7 +3,7 @@ import "../App.css";
 
 function MainContent() {
   return (
-    <main>
+    <main class="main-class">
       <p>This is where most of the content will go</p>
     </main>
   );

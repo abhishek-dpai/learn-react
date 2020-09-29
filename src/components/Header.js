@@ -3,7 +3,7 @@ import "../App.css";
 
 function Header() {
   return (
-    <header>
+    <header className="navbar">
       <h1>Hello, This is Abhishek Rai </h1>
       <ul>
         <li>C++</li>
