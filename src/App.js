@@ -1,24 +1,67 @@
+/**
+ * Let's make it so our checkbox can actually mark our todo as complete or incomplete!
+ * This challenge is a little more involved than some of the past ones. Check the comments
+ * in the code for some help on accomplishing this one
+ *
+ * Challenge:
+ * 1. Create an event handler in the App component for when the checkbox is clicked (which is an `onChange` event)
+ *    a. This method will be the trickest part. Check the comments in the stubbed-out method below for some pseudocode to help guide you through this part
+ * 2. Pass the method down to the TodoItem component
+ * 3. In the TodoItem component, make it so when the `onChange` event happens, it calls the `handleChange` method and passes the id of the todo into the function
+ */
+
 import React from "react";
-import "./App.css";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import MainContent from "./components/MainContent";
-import ToDoItem from "./components/ToDoItem";
-import Joke from "./components/Joke";
-import jokesData from "./jokesData";
-// function App() {
-//   const jokeComponent = jokesData.map((joke) => {
-//     return (
-//       <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />
-//     );
-//   });
-//   return <div>{jokeComponent}</div>;
-// }
-function App() {
-  return jokesData.map((joke) => {
-    return (
-      <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />
-    );
-  });
+import TodoItem from "./TodoItem";
+import todosData from "./todosData";
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      todos: todosData,
+    };
+    this.handleChange = this.handleChange.bind(this); // read later bind, call , apply
+  }
+
+  handleChange(id) {
+    console.log("printing id=", id);
+    this.setState((prevState) => {
+      console.log("prevState:-", prevState);
+      const updatedTodos = prevState.todos.map((todo) => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      });
+      console.log("inside handleChange", updatedTodos);
+      return {
+        todos: [...updatedTodos],
+      };
+    });
+    // this.setState({
+    //   todos: this.state.todos.map((todo) => {
+    //     return {
+    //       ...todo,
+    //       completed: todo.id === id ? !todo.completed : todo.completed,
+    //     };
+
+    //   }),
+    // });
+  }
+
+  render() {
+    const todoItems = this.state.todos.map((item) => (
+      <TodoItem
+        key={item.id}
+        item={item}
+        handleChange={(id) => {
+          this.handleChange(id);
+        }}
+      />
+    ));
+
+    return <div className="todo-list">{todoItems}</div>;
+  }
 }
+
 export default App;
