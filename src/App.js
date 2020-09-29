@@ -1,24 +1,25 @@
 import React from "react";
-import "./App.css";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import MainContent from "./components/MainContent";
-import ToDoItem from "./components/ToDoItem";
-import Joke from "./components/Joke";
-import jokesData from "./jokesData";
-// function App() {
-//   const jokeComponent = jokesData.map((joke) => {
-//     return (
-//       <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />
-//     );
-//   });
-//   return <div>{jokeComponent}</div>;
-// }
-function App() {
-  return jokesData.map((joke) => {
+
+// Challenge:
+// Given an incomplete class-based component without a constructor,
+// add a constructor and initialize state to fix the broken component.
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: "Abhishek",
+      age: "21",
+    };
+  }
+  render() {
     return (
-      <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />
+      <div>
+        <h1>{this.state.name}</h1>
+        <h3>{this.state.age} years old</h3>
+      </div>
     );
-  });
+  }
 }
+
 export default App;
